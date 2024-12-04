@@ -65,79 +65,23 @@ namespace dotnet_magic_reads.Controllers
             });
         }
 
-
-        // GET: MagicReadsController
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: MagicReadsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: MagicReadsController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: MagicReadsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Book>> GetBookById(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                var book = await _context.Books.FindAsync(id);
 
-        // GET: MagicReadsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+                if (book == null)
+                {
+                    return NotFound(new { Message = $"Book with id {id} not found." });
+                }
 
-        // POST: MagicReadsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+                return Ok(book);
             }
-            catch
+            catch (Exception)
             {
-                return View();
-            }
-        }
-
-        // GET: MagicReadsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MagicReadsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
     }
