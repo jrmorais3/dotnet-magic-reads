@@ -1,3 +1,6 @@
+using dotnet_magic_reads.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<MagicReadsContext>(opt => opt.UseInMemoryDatabase(databaseName: "MagicReads"));
 
 var app = builder.Build();
 

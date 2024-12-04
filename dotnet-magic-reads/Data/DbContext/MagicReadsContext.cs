@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_magic_reads.Data
 {
-    public class FabContext : DbContext
+    public class MagicReadsContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
 
-        public FabContext(DbContextOptions<FabContext> options) : base(options) { }
+        public MagicReadsContext(DbContextOptions<MagicReadsContext> options) : base(options) { }
     }
 }
