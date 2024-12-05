@@ -20,7 +20,6 @@ namespace dotnet_magic_reads.Controllers
                 _context.Books.AddRange(
                     new Book
                     {
-                        Id = 1,
                         Name = "The Standard Book of Spells, Grade 1",
                         Price = 24.99,
                         Stock = 30,
@@ -29,7 +28,6 @@ namespace dotnet_magic_reads.Controllers
                     },
                     new Book
                     {
-                        Id = 2,
                         Name = "Magical Drafts and Potions",
                         Price = 29.99,
                         Stock = 25,
@@ -38,7 +36,6 @@ namespace dotnet_magic_reads.Controllers
                     },
                     new Book
                     {
-                        Id = 3,
                         Name = "Fantastic Beasts and Where to Find Them",
                         Price = 34.99,
                         Stock = 40,
@@ -47,7 +44,6 @@ namespace dotnet_magic_reads.Controllers
                     },
                     new Book
                     {
-                        Id = 4,
                         Name = "A History of Magic",
                         Price = 39.99,
                         Stock = 20,
@@ -56,7 +52,6 @@ namespace dotnet_magic_reads.Controllers
                     },
                     new Book
                     {
-                        Id = 5,
                         Name = "The Dark Forces: A Guide to Self-Protection",
                         Price = 27.99,
                         Stock = 15,
@@ -106,6 +101,14 @@ namespace dotnet_magic_reads.Controllers
             {
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Book>> PostBook(Book newBook)
+        {
+            await _context.Books.AddAsync(newBook);
+            _context.SaveChanges();
+            return Ok(newBook);
         }
     }
 }
