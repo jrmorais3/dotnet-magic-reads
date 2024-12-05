@@ -84,5 +84,25 @@ namespace dotnet_magic_reads.Controllers
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
+        {
+            try
+            {
+                var books = await _context.Books.ToListAsync();
+
+                if (books.Count == 0)
+                {
+                    return NotFound(new { Message = $"No books were found." });
+                }
+
+                return Ok(books);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
+        }
     }
 }
