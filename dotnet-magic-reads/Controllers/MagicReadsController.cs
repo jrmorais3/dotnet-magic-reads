@@ -1,6 +1,7 @@
-﻿using dotnet_magic_reads.Data;
+﻿using dotnet_magic_reads.Data.Context;
 using dotnet_magic_reads.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_magic_reads.Controllers
 {
@@ -14,55 +15,57 @@ namespace dotnet_magic_reads.Controllers
         {
             _context = context;
 
-            _context.Add(new Book
+            if (!_context.Books.Any())
             {
-                Id = 1,
-                Name = "The Standard Book of Spells, Grade 1",
-                Price = 24.99,
-                Stock = 30,
-                Category = "Magic School",
-                Img = "https://example.com/standard_book_of_spells.jpg"
-            });
-
-            _context.Add(new Book
-            {
-                Id = 2,
-                Name = "Magical Drafts and Potions",
-                Price = 29.99,
-                Stock = 25,
-                Category = "Magic School",
-                Img = "https://example.com/magical_drafts_and_potions.jpg"
-            });
-
-            _context.Add(new Book
-            {
-                Id = 3,
-                Name = "Fantastic Beasts and Where to Find Them",
-                Price = 34.99,
-                Stock = 40,
-                Category = "Magic School",
-                Img = "https://example.com/fantastic_beasts.jpg"
-            });
-
-            _context.Add(new Book
-            {
-                Id = 4,
-                Name = "A History of Magic",
-                Price = 39.99,
-                Stock = 20,
-                Category = "Magic School",
-                Img = "https://example.com/history_of_magic.jpg"
-            });
-
-            _context.Add(new Book
-            {
-                Id = 5,
-                Name = "The Dark Forces: A Guide to Self-Protection",
-                Price = 27.99,
-                Stock = 15,
-                Category = "Magic School",
-                Img = "https://example.com/dark_forces.jpg"
-            });
+                _context.Books.AddRange(
+                    new Book
+                    {
+                        Id = 1,
+                        Name = "The Standard Book of Spells, Grade 1",
+                        Price = 24.99,
+                        Stock = 30,
+                        Category = "Magic School",
+                        Img = "https://example.com/standard_book_of_spells.jpg"
+                    },
+                    new Book
+                    {
+                        Id = 2,
+                        Name = "Magical Drafts and Potions",
+                        Price = 29.99,
+                        Stock = 25,
+                        Category = "Magic School",
+                        Img = "https://example.com/magical_drafts_and_potions.jpg"
+                    },
+                    new Book
+                    {
+                        Id = 3,
+                        Name = "Fantastic Beasts and Where to Find Them",
+                        Price = 34.99,
+                        Stock = 40,
+                        Category = "Magic School",
+                        Img = "https://example.com/fantastic_beasts.jpg"
+                    },
+                    new Book
+                    {
+                        Id = 4,
+                        Name = "A History of Magic",
+                        Price = 39.99,
+                        Stock = 20,
+                        Category = "Magic School",
+                        Img = "https://example.com/history_of_magic.jpg"
+                    },
+                    new Book
+                    {
+                        Id = 5,
+                        Name = "The Dark Forces: A Guide to Self-Protection",
+                        Price = 27.99,
+                        Stock = 15,
+                        Category = "Magic School",
+                        Img = "https://example.com/dark_forces.jpg"
+                    }
+                );
+                _context.SaveChanges();
+            }
         }
 
         [HttpGet("{id}")]

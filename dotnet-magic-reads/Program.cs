@@ -1,4 +1,5 @@
 using dotnet_magic_reads.Data;
+using dotnet_magic_reads.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

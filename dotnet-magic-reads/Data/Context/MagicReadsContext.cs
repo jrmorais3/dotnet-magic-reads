@@ -1,7 +1,7 @@
 ﻿using dotnet_magic_reads.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnet_magic_reads.Data
+namespace dotnet_magic_reads.Data.Context
 {
     public class MagicReadsContext : DbContext
     {
