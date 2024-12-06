@@ -1,4 +1,5 @@
 ﻿using dotnet_magic_reads.Data.Context;
+using dotnet_magic_reads.DTO;
 using dotnet_magic_reads.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -82,7 +83,7 @@ namespace dotnet_magic_reads.Controllers
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
         {
@@ -104,8 +105,17 @@ namespace dotnet_magic_reads.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book newBook)
+        public async Task<ActionResult<Book>> PostBook(BookCreateDto newBookDto)
         {
+            var newBook = new Book
+            {
+                Category = newBookDto.Category,
+                Name = newBookDto.Name,
+                Price = newBookDto.Price,
+                Stock = newBookDto.Stock,
+                Img = newBookDto.Img
+            };
+
             await _context.Books.AddAsync(newBook);
             _context.SaveChanges();
             return Ok(newBook);
